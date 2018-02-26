@@ -50,7 +50,12 @@ Further roles for configuring DNS:
 ```
 gcloud projects add-iam-policy-binding ${GOOGLE_PROJECT} --member serviceAccount:terraform@${GOOGLE_PROJECT}.iam.gserviceaccount.com --role roles/dns.admin
 ```
+# kubectl
 
+Set up your local copy of `kubectl` to be able to interact with the terraform generated cluster
+```
+gcloud container clusters get-credentials tier-cluster --project=$GOOGLE_PROJECT
+```
 
 # Using Terraform
 ```
@@ -64,7 +69,11 @@ domain = "example.com"
 region = "europe-west2-a"
 ```
 
-#References
+# Notes
+
+Note we configure the cluster with the `https://www.googleapis.com/auth/ndev.clouddns.readwrite` scope so that the external-dns pod can modify the DNS. Presumably this means that any pod in the cluster could modify the DNS. Is this a concern?
+
+# References
 
 * https://cloud.google.com/community/tutorials/managing-gcp-projects-with-terraform
 ```

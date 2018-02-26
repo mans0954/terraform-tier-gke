@@ -1,9 +1,15 @@
 variable "domain" {}
+variable "project" {}
 
 resource "google_container_cluster" "primary" {
   name = "tier-cluster"
   zone = "${var.region}"
   initial_node_count = 1
+  node_config {
+    oauth_scopes = [
+      "https://www.googleapis.com/auth/ndev.clouddns.readwrite"
+    ]
+  }
 }
 
 provider "kubernetes" {
@@ -28,6 +34,7 @@ resource "kubernetes_pod" "external-dns" {
     container {
       image = "registry.opensource.zalan.do/teapot/external-dns:v0.4.8"
       name  = "external-dns"
+      args  = ["--source=service","--source=ingress","--domain-filter=tier.${var.domain}","--provider=google","--google-project=${var.project}","--registry=txt","--txt-owner-id=terraform"]
     }
   }
 }
