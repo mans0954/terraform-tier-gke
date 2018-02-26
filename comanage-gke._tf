@@ -1,0 +1,14 @@
+variable "region" {
+  default = "europe-west2-a"
+}
+
+provider "google" {
+  credentials = "${file("account.json")}"
+  region      = "${var.region}"
+}
+
+resource "google_container_cluster" "primary" {
+  name = "tier-cluster"
+  zone = "${var.region}"
+  initial_node_count = 1
+}
