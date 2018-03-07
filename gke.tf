@@ -1,9 +1,10 @@
 variable "domain" {}
 variable "project" {}
+variable "zone" {}
 
 resource "google_container_cluster" "primary" {
   name = "tier-cluster"
-  zone = "${var.region}"
+  zone = "${var.zone}"
   initial_node_count = 1
   node_config {
     oauth_scopes = [

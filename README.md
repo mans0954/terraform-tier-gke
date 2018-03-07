@@ -46,9 +46,10 @@ It seems some further permissions are required:
 gcloud projects add-iam-policy-binding ${GOOGLE_PROJECT} --member serviceAccount:terraform@${GOOGLE_PROJECT}.iam.gserviceaccount.com --role roles/iam.serviceAccountUser
 gcloud projects add-iam-policy-binding ${GOOGLE_PROJECT} --member serviceAccount:terraform@${GOOGLE_PROJECT}.iam.gserviceaccount.com --role roles/viewer
 ```
-Further roles for configuring DNS:
+Further roles for configuring DNS and IP:
 ```
 gcloud projects add-iam-policy-binding ${GOOGLE_PROJECT} --member serviceAccount:terraform@${GOOGLE_PROJECT}.iam.gserviceaccount.com --role roles/dns.admin
+gcloud projects add-iam-policy-binding ${GOOGLE_PROJECT} --member serviceAccount:terraform@${GOOGLE_PROJECT}.iam.gserviceaccount.com --role roles/compute.networkAdmin
 ```
 # kubectl
 
@@ -66,7 +67,8 @@ terraform apply
 To avoid having to enter variables each time, create a `terraform.tfvars` file e.g.
 ```
 domain = "example.com"
-region = "europe-west2-a"
+region = "europe-west2"
+zone = "europe-west2-a"
 project = "<user>-terraform-tier"
 ```
 
