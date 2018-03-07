@@ -67,7 +67,10 @@ To avoid having to enter variables each time, create a `terraform.tfvars` file e
 ```
 domain = "example.com"
 region = "europe-west2-a"
+project = "<user>-terraform-tier"
 ```
+
+(unfortunately there doesn't appear to be a straight-forward way to get Terraform to read $GOOGLE_PROJECT).
 
 # Notes
 
