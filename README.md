@@ -62,7 +62,7 @@ gcloud container clusters get-credentials tier-cluster --project=$GOOGLE_PROJECT
 terraform init --backend-config="bucket=${GOOGLE_PROJECT}" --backend-config="project=${GOOGLE_PROJECT}"
 terraform plan
 terraform apply
-
+```
 To avoid having to enter variables each time, create a `terraform.tfvars` file e.g.
 ```
 domain = "example.com"
@@ -76,7 +76,3 @@ Note we configure the cluster with the `https://www.googleapis.com/auth/ndev.clo
 # References
 
 * https://cloud.google.com/community/tutorials/managing-gcp-projects-with-terraform
-```
-
-
-
