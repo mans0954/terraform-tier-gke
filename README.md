@@ -74,6 +74,24 @@ project = "<user>-terraform-tier"
 
 (unfortunately there doesn't appear to be a straight-forward way to get Terraform to read $GOOGLE_PROJECT).
 
+# Terraform Helm
+
+```
+wget https://github.com/mcuadros/terraform-provider-helm/releases/download/v0.4.0/terraform-provider-helm_v0.4.0_linux_amd64.tar.gz
+tar -xvf terraform-provider-helm*.tar.gz
+mkdir -p ~/.terraform.d/plugins/
+mv terraform-provider-helm*/terraform-provider-helm ~/.terraform.d/plugins/
+terraform init --backend-config="bucket=${GOOGLE_PROJECT}" --backend-config="project=${GOOGLE_PROJECT}"
+```
+
+# Make Helm repo
+
+```
+helm package <path to chart>
+helm repo index .
+```
+
+
 # Notes
 
 Note we configure the cluster with the `https://www.googleapis.com/auth/ndev.clouddns.readwrite` scope so that the external-dns pod can modify the DNS. Presumably this means that any pod in the cluster could modify the DNS. Is this a concern?
