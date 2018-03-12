@@ -5,8 +5,9 @@ variable "zone" {}
 resource "google_container_cluster" "primary" {
   name = "tier-cluster"
   zone = "${var.zone}"
-  initial_node_count = 2
+  initial_node_count = 3
   node_config {
+    machine_type = "n1-standard-2"
     oauth_scopes = [
       "https://www.googleapis.com/auth/logging.write",
       "https://www.googleapis.com/auth/monitoring",
