@@ -14,6 +14,12 @@ resource "helm_repository" "mans0954" {
 
 
 resource "helm_release" "comanage" {
-	name	= "comanage"
-	chart	= "mans0954/comanage"
+  name	= "comanage"
+  chart	= "mans0954/comanage"
+  version = "0.1.1"
+  set {
+    name = "ingress.enabled"
+    value = "true"
+  }
+  values = "${file("comanage-values.yaml")}"
 }
