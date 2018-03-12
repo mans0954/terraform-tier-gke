@@ -5,7 +5,7 @@ variable "zone" {}
 resource "google_container_cluster" "primary" {
   name = "tier-cluster"
   zone = "${var.zone}"
-  initial_node_count = 1
+  initial_node_count = 2
   node_config {
     oauth_scopes = [
       "https://www.googleapis.com/auth/logging.write",
@@ -28,6 +28,7 @@ resource "google_dns_managed_zone" "tier" {
   description = "tier.${var.domain} DNS zone"
 }
 
+/*
 resource "kubernetes_pod" "external-dns" {
   metadata {
     name = "external-dns"
@@ -41,4 +42,4 @@ resource "kubernetes_pod" "external-dns" {
     }
   }
 }
-
+*/
