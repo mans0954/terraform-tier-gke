@@ -51,6 +51,14 @@ Further roles for configuring DNS and IP:
 gcloud projects add-iam-policy-binding ${GOOGLE_PROJECT} --member serviceAccount:terraform@${GOOGLE_PROJECT}.iam.gserviceaccount.com --role roles/dns.admin
 gcloud projects add-iam-policy-binding ${GOOGLE_PROJECT} --member serviceAccount:terraform@${GOOGLE_PROJECT}.iam.gserviceaccount.com --role roles/compute.networkAdmin
 ```
+Roles for storage:
+```
+gcloud projects add-iam-policy-binding ${GOOGLE_PROJECT} --member serviceAccount:terraform@${GOOGLE_PROJECT}.iam.gserviceaccount.com --role roles/compute.storageAdmin
+```
+
+
+Note, you can find out which roles grant a particular permission by searching for the permission at https://console.cloud.google.com/iam-admin/roles
+
 # kubectl
 
 Set up your local copy of `kubectl` to be able to interact with the terraform generated cluster
