@@ -21,5 +21,7 @@ resource "helm_release" "comanage" {
     name = "ingress.enabled"
     value = "true"
   }
-  values = "${file("comanage-values.yaml")}"
+  values = [
+    "${file("comanage-values.yaml")}"
+  ]
 }
