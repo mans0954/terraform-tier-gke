@@ -2,6 +2,17 @@
 
 This terraform deploys TIER components to Google Kubernetes Engine.
 
+# AWS as domain registrar
+
+```
+export AWS_SHARED_CREDENTIALS_FILE=~/.aws/tf_credentials 
+aws iam create-user --user-name terraform
+aws iam attach-user-policy --user-name terraform --policy-arn arn:aws:iam::aws:policy/AmazonRoute53DomainsFullAccess
+aws iam attach-user-policy --user-name terraform --policy-arn arn:aws:iam::aws:policy/AmazonRoute53ReadOnlyAccess
+aws iam create-access-key --user-name terraform | jq -r '.AccessKey | "["+.UserName+"]\naws_access_key_id = "+.AccessKeyId+"\naws_secret_access_key = "+.SecretAccessKey+"\n"' >> $AWS_SHARED_CREDENTIALS_FILE
+```
+
+
 # Google Cloud Project for Terraform
 
 Start by seting a name for the project and a location for the credentials. These can be what you like, but the project name must be globally unique.
@@ -75,7 +86,8 @@ terraform apply
 To avoid having to enter variables each time, create a `terraform.tfvars` file e.g.
 ```
 domain = "example.com"
-region = "europe-west2"
+aws_region = "eu-west-2"
+gcp_region = "europe-west2"
 zone = "europe-west2-a"
 project = "<user>-terraform-tier"
 ```

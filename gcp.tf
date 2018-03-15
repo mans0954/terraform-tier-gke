@@ -1,8 +1,8 @@
-variable "region" {
+variable "gcp_region" {
   default = "europe-west2-a"
 }
 
 provider "google" {
-  region      = "${var.region}"
+  region      = "${var.gcp_region}"
 }
 
