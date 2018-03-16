@@ -10,7 +10,7 @@ resource "google_dns_managed_zone" "tier" {
 }
 
 # Reserve an IP address for comanage
-resource "google_compute_address" "comanange-ip" {
+resource "google_compute_global_address" "comanange-ip" {
   name = "comanage-ip"
 }
 
@@ -22,7 +22,7 @@ resource "google_dns_record_set" "comanage" {
 
   managed_zone = "${google_dns_managed_zone.tier.name}"
 
-  rrdatas = ["${google_compute_address.comanange-ip.address}"]
+  rrdatas = ["${google_compute_global_address.comanange-ip.address}"]
 }
 
 output "name_servers" {
@@ -30,6 +30,6 @@ output "name_servers" {
 }
 
 output "ip" {
-  value = "${google_compute_address.comanange-ip.address}"
+  value = "${google_compute_global_address.comanange-ip.address}"
 }
 

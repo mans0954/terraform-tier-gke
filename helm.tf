@@ -29,7 +29,7 @@ ingress:
     - comanage.${var.dns_zone}.${var.domain}
   path: /*
   annotations: {
-    kubernetes.io/ingress.global-static-ip-name: ${google_compute_address.comanange-ip.name}
+    kubernetes.io/ingress.global-static-ip-name: ${google_compute_global_address.comanange-ip.name}
   }
 
 service:
