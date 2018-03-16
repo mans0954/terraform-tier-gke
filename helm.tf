@@ -23,6 +23,16 @@ resource "helm_release" "comanage" {
     value = "true"
   }
   values = [
-    "${file("comanage-values.yaml")}"
+<<EOF
+ingress:
+  hosts:
+    - comanage.${var.dns_zone}.${var.domain}
+  annotations: {
+    kubernetes.io/ingress.global-static-ip-name: ${google_compute_address.comanange-ip.name}
+  }
+
+service:
+  type: NodePort
+EOF
   ]
 }

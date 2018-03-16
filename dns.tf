@@ -1,8 +1,12 @@
+variable "dns_zone" {
+  default = "tier"
+}
+
 # Set up the tier managed zone
 resource "google_dns_managed_zone" "tier" {
-  name        = "tier"
-  dns_name    = "tier.${var.domain}."
-  description = "tier.${var.domain} DNS zone"
+  name        = "${var.dns_zone}"
+  dns_name    = "${var.dns_zone}.${var.domain}."
+  description = "${var.dns_zone}.${var.domain} DNS zone"
 }
 
 # Reserve an IP address for comanage

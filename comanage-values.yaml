@@ -1,7 +1,0 @@
-ingress:
-  hosts:
-    - comamage.cshoskin.net
-  annotations: {
-    kubernetes.io/ingress.global-static-ip-name: comanage-ip
-  }
-
