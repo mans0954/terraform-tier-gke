@@ -5,13 +5,17 @@ This terraform deploys TIER components to Google Kubernetes Engine.
 # AWS as domain registrar
 
 ```
-export AWS_SHARED_CREDENTIALS_FILE=~/.aws/tf_credentials 
-aws iam create-user --user-name terraform
-aws iam attach-user-policy --user-name terraform --policy-arn arn:aws:iam::aws:policy/AmazonRoute53DomainsFullAccess
-aws iam attach-user-policy --user-name terraform --policy-arn arn:aws:iam::aws:policy/AmazonRoute53ReadOnlyAccess
-aws iam create-access-key --user-name terraform | jq -r '.AccessKey | "["+.UserName+"]\naws_access_key_id = "+.AccessKeyId+"\naws_secret_access_key = "+.SecretAccessKey+"\n"' >> $AWS_SHARED_CREDENTIALS_FILE
+sudo apt install jq
+aws iam create-user --user-name terraform-`hostname`
+## aws iam attach-user-policy --user-name terraform --policy-arn arn:aws:iam::aws:policy/AmazonRoute53DomainsFullAccess
+aws iam attach-user-policy --user-name terraform-`hostname` --policy-arn arn:aws:iam::aws:policy/AmazonRoute53ReadOnlyAccess
+aws iam attach-user-policy --user-name terraform-`hostname` --policy-arn arn:aws:iam::aws:policy/AmazonRoute53AutoNamingFullAccess
+export AWS_SHARED_CREDENTIALS_FILE=~/.aws/tf_credentials
+aws iam create-access-key --user-name terraform-`hostname` | jq -r '.AccessKey | "["+.UserName+"]\naws_access_key_id = "+.AccessKeyId+"\naws_secret_access_key = "+.SecretAccessKey+"\n"' >> $AWS_SHARED_CREDENTIALS_FILE
 ```
 
+N.B. Both the aws cli and the terraform provider use the AWS_SHARED_CREDENTIALS_FILE variable
+to find shared credentials file. Might be better just to leave it to the default!
 
 # Google Cloud Project for Terraform
 
@@ -90,6 +94,7 @@ aws_region = "eu-west-2"
 gcp_region = "europe-west2"
 zone = "europe-west2-a"
 project = "<user>-terraform-tier"
+aws_profile = "terraform-squash"
 ```
 
 (unfortunately there doesn't appear to be a straight-forward way to get Terraform to read $GOOGLE_PROJECT).

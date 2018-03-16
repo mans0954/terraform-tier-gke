@@ -2,8 +2,10 @@ variable "aws_region" {
   default = "eu-west-2"
 }
 
+variable "aws_profile" {}
+
 provider "aws" {
-  profile    = "terraform"
+  profile    = "${var.aws_profile}"
   region     = "${var.aws_region}"
 }
 

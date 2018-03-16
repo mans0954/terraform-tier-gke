@@ -1,4 +1,5 @@
 provider "helm" {
+  version = "~> 0.5.0"
   kubernetes {
     host     = "${google_container_cluster.primary.endpoint}"
     client_certificate     = "${base64decode(google_container_cluster.primary.master_auth.0.client_certificate)}"
