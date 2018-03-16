@@ -27,6 +27,7 @@ resource "helm_release" "comanage" {
 ingress:
   hosts:
     - comanage.${var.dns_zone}.${var.domain}
+  path: /*
   annotations: {
     kubernetes.io/ingress.global-static-ip-name: ${google_compute_address.comanange-ip.name}
   }

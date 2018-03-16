@@ -116,6 +116,19 @@ helm package <path to chart>
 helm repo index .
 ```
 
+# Testing
+
+```
+curl -H 'Host:comanage.tier.cshoskin.net' x.x.x.x
+```
+where x.x.x.x is the fixed IP address passed as an annotation to the ingress controller.
+
+Should return the default Debian Apache page (as comanage is actually at /registry)
+
+This can be found with:
+```
+kubectl get ingress comanage
+```
 
 # Notes
 
